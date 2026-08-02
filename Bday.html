@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday, VAL.E!</title>
+    <link rel="stylesheet" href="Bday.css">
+    <!-- Google Fonts for Elegant Typography -->
+    <link href="https://googleapis.com" rel="stylesheet">
+</head>
+<body>
+    <!-- Place this right after the opening <body> tag -->
+<div id="lockscreen" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, #ee69c8 0%, #78e7f3 100%); z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px;">
+    <div style="background: white; padding: 40px 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.585); max-width: 400px; width: 100%;">
+        <h2 style="font-family: 'Playfair Display', serif; color: #e05375; margin-bottom: 15px;">🔒 Top Secret Box</h2>
+        <p style="color: #4a3e41; font-size: 0.95rem; margin-bottom: 25px; font-style: italic;">Enter Your Town of Birth to unlock birthday surprise!</p>
+        
+        <input type="password" id="passwordInput" placeholder="Enter password..." 
+            style="width: 100%; padding: 12px 15px; border-radius: 25px; border: 2px solid #6dc7e7; font-size: 1rem; text-align: center; outline: none; margin-bottom: 15px;">
+        
+        <button onclick="checkPassword()" 
+            style="background: #6dc7e7;; color: white; border: none; padding: 12px 30px; border-radius: 25px; font-weight: 600; font-size: 1rem; cursor: pointer; transition: background 0.3s; width: 100%;">
+            Unlock ❤️
+        </button>
+        <p id="loginError" style="color: #e05375; font-size: 0.85rem; margin-top: 10px; display: none; font-weight: 600;">Incorrect password, try again love! 😘</p>
+    </div>
+</div>
+
+
+    <!-- Floating Background Hearts -->
+    <div class="heart-bg" id="heartBg"></div>
+
+   <!-- Music Controller Fixed Floating Button -->
+<div class="audio-control" id="audioControl" style="position: fixed; bottom: 25px; right: 25px; background: rgba(224, 83, 117, 0.95); backdrop-filter: blur(5px); padding: 15px; border-radius: 20px; z-index: 100; box-shadow: 0 4px 15px rgba(0,0,0,0.2); display: flex; flex-direction: column; gap: 8px; width: 240px;">
+    
+    <div style="display: flex; align-items: center; justify-content: space-between; color: white; font-weight: 600; font-size: 0.9rem;">
+        <div style="display: flex; align-items: center; gap: 6px;">
+            <span class="icon">🎵</span>
+            <span class="text">Play Music</span>
+        </div>
+        <!-- Clean play button without click collision -->
+        <button id="musicToggleBtn" onclick="toggleMusic()" style="background: none; border: none; color: white; font-size: 1.1rem; cursor: pointer; padding: 0 5px;">▶️</button>
+    </div>
+    <!-- Inside your audio-control div, right above the <select> menu -->
+<div class="progress-container" style="width: 100%; margin: 5px 0;">
+    <input type="range" id="progressBar" value="0" min="0" max="100" 
+        style="width: 100%; height: 5px; cursor: pointer; accent-color: #191818;">
+    <div style="display: flex; justify-content: space-between; font-size: 0.7rem; color: white; margin-top: 2px;">
+        <span id="currentTime">0:00</span>
+        <span id="totalDuration">0:00</span>
+    </div>
+</div>
+
+
+    <!-- Dropdown Options Menu -->
+    <select id="musicSelector" onchange="changeTrack()" style="width: 100%; padding: 8px; border-radius: 10px; border: none; font-family: inherit; font-size: 0.85rem; outline: none; cursor: pointer; background: rgba(127, 255, 122, 0.518); color: #4a3e41;">
+
+        <option value="Mimi Na Wewe [_0UYRsRgUxM].mp3">1. Bridget Blue - Mimi na Wewe</option>
+        <option value="Ed Sheeran - Photograph (Official Lyric Video) [KKQl-pIRQMY].mp3">2. Ed Sheeran - Photograph ✨</option>
+        <option value="Jade LeMac - Constellations (Official Music Video) [y13-xeaShIo].mp3">3. Jade LeMac - Constellations 💖</option>
+        <option value="girl in red - we fell in love in october [iggmiF7DNoM].mp3">4. girl in red - we fell in love in october</option>
+        <option value="Mbuzi [NcI7P5mu6qE].mp3">5. Bridget Blue - Mbuzi</option>
+       <option value="Wizkid - Essence (Official Video) ft. Tems [jipQpjUA_o8].mp3">6. Wizkid - Essence</option>
+        <option value="Kethan - Kesho Kutwa (Official Video) [SCvPqMrimrA].mp3">7.Kethan - Kesho Kutwa</option>
+        <option value="Kinoti - Nitangoja (official Video). [KAO8In9c3lo].mp3">8. Kinoti - Nitangoja</option>
+    </select>
+
+    <!-- ONE Single Hidden Audio Tag handled dynamically by JavaScript -->
+    <audio id="bgMusic" src="Mimi Na Wewe [_0UYRsRgUxM].mp3"></audio>
+</div>
+
+
+    <!-- 1. Hero / Welcome Section -->
+    <header class="hero">
+        <div class="hero-content">
+            <h1 class="fade-in">Happy Birthday/<br>Anniversary, <span class="highlight">Val.E</span> !</h1>
+            <p class="subtitle fade-in-delayed">See Who now is Getting Old.<br>Happy me You Are Growing!!</p>
+            <div class="countdown" id="countdown">
+                <div><span id="days">00</span><p>Days</p></div>
+                <div><span id="hours">00</span><p>Hours</p></div>
+                <div><span id="minutes">00</span><p>Minutes</p></div>
+                <div><span id="seconds">00</span><p>Seconds</p></div>
+            </div>
+            <a href="#timeline" class="scroll-btn">Our Story ↓</a>
+        </div>
+    </header>
+
+    <!-- 2. Interactive Timeline Section -->
+    <section id="timeline" class="timeline-section">
+        <h2 class="section-title">Our Love Story Timeline</h2>
+        <div class="timeline">
+            <div class="timeline-container left">
+                <div class="timeline-content">
+                    <h3>The Day We Met</h3>
+                    <span class="date">March 15, 2024</span>
+                    <p>Back then nikiwa Mwanafunzi kama wewe (in uniform).Ukiwa umekuja Games And me Watching you<br> Innocent Me + Inoccent You= Noutorius Us</p>
+                </div>
+            </div>
+            <div class="timeline-container right">
+                <div class="timeline-content">
+                    <h3>Our First Official Date</h3>
+                    <span class="date">August 13, 2024</span>
+                    <p>This Day iko my in mind like its happening...<br> Nilikua Tution kwa Dad and ulikua Nyeri.And for some reason you made me wanna travel across the country to you../</p>
+                </div>
+            </div>
+            <div class="timeline-container left">
+                <div class="timeline-content">
+                    <h3>A Milestone Memory</h3>
+                    <span class="date">Summer 2024</span>
+                    <p>There I was after finishing my KCSE... Shy me- making us spend one of our forgetful moment in the scorching sun.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+ <section id="candle-section" style="text-align: center;  padding: 60px 20px; background: #fffafb; position: relative; z-index: 5;">
+    <h2 class="section-title" style="font-family: 'Dancing Script', cursive; font-size: 3rem; color: #e05375; margin-bottom: 20px;text-decoration: none;">Make Your 18th Wish</h2>
+    
+    <!-- Outer Relative Box Anchor Container -->
+    <div class="cake-container" style="position: relative; margin: 60px auto 30px auto; width: 200px; height: 110px;">
+        
+        <!-- THE FIXED INTERACTIVE CANDLE (With custom overrides to bypass style.css layout bugs) -->
+        <div class="candle" id="birthday-candle" style="position: absolute; left: 50%; bottom: 106px; transform: translateX(-50%); z-index: 10; width: 16px; height: 55px; background: #ff7597; border-radius: 4px; margin: 0 !important; padding: 0 !important;">
+            <!-- Perfectly centered flame relative to the candle tip frame structure -->
+            <div class="flame" id="flame"></div>
+            <div class="glow" id="glow"></div>
+           
+        </div>
+        <!-- The Cake Layers -->
+        <div class="cake-top" style="width: 160px; height: 50px; background: #fdf2e9; border-radius: 10px 10px 0 0; margin: 0 auto; position: relative; z-index: 2; border-bottom: 4px solid #ff7597;"></div>
+        <div class="cake-bottom" style="width: 200px; height: 60px; background: #f4d03f; border-radius: 10px 10px 0 0; position: relative; z-index: 1; border-bottom: 4px solid #e05375; margin-top: -4px;"></div>
+    </div>
+
+    <!-- Controlling Action Triggers Panel Box Section -->
+    <div style="margin-top: 35px; min-height: 50px; position: relative; z-index: 20;">
+        <button id="mic-btn" onclick="extinguish()" style="background: #e05375; color: white; border: none; padding: 12px 30px; border-radius: 25px; font-weight: 600; font-size: 1rem; cursor: pointer; display: inline-block; box-shadow: 0 4px 10px rgba(224,83,117,0.3); transition: transform 0.1s;">
+            Click to Blow Out Candle 
+        </button>
+         <p>Blow to your microphone 🎤</p>
+    </div>
+
+    <!-- Hidden Custom Wish Input Card Wrapper Box Layout -->
+    <div id="wish-area">
+        <p style="font-style: italic; color: #4a3e41; margin-bottom: 12px;">The flame is out... now type your secret 18th wish below.</p>
+        <textarea id="secret-wish" placeholder="I wish for..." style="width: 100%; padding: 15px; border-radius: 12px; border: 2px solid #ff7597; font-family: inherit; outline: none; box-sizing: border-box; font-size: 1rem;" rows="4"></textarea>
+        <button onclick="saveWish()" style="margin-top: 15px; background: #ff7597; color: white; border: none; padding: 12px 30px; border-radius: 25px; font-weight: 600; cursor: pointer; width: 100%; box-shadow: 0 4px 10px rgba(255,117,151,0.2);">Lock My Wish 🔒</button>
+    </div>
+</section>
+
+
+
+<!-- Include Canvas Confetti Library -->
+<!-- Replace your broken jsdelivr tag with this exact link -->
+<script src="https://jsdelivr.net"></script>
+
+
+
+    <!-- 3. Photo & Video Gallery -->
+    <section id="gallery" class="gallery-section">
+        <h2 class="section-title">Cherished Moments</h2>
+        <p class="section-subtitle">A tiny window into some of Our absolute favorite memories.</p>
+        <div class="gallery-grid">
+            <!-- Replace placeholder image URLs with actual source links -->
+              <div class="gallery-item">
+                <img src="birhdaygal.png" alt="Birthday Gal">
+                <div class="overlay"><p>Am now Big ❤️</p></div>
+            </div>
+            <div class="gallery-item">
+                <img src="proudgal.png" alt="Proud Gal">
+                <div class="overlay"><p>Proud with my Gal</p></div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="same.as.jpg" alt="Same Mindset">
+                <div class="overlay"><p>Same Mindset ❤️</p></div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="beautiful.jpg" alt="Memory 4">
+                <div class="overlay"><p>Happy with my Fit</p></div>
+            </div>
+            <div class="gallery-item">
+                <img src="conflict.jpg" alt="Memory 5">
+                <div class="overlay"><p>Your daily Debate😂</p></div>
+            </div>
+            <div class="gallery-item">
+                <img src="smilee.jpg" alt="Memory 6">
+                <div class="overlay"><p>Meno nje</p></div>
+            </div>
+            <div class="gallery-item">
+                <img src="day one.jpg" alt="Memory 7">
+                <div class="overlay"><p>First Visit</p></div>
+            </div>
+            <div class="gallery-item">
+                <img src="me.jpg" alt="me">
+                <div class="overlay"><p>The Groom</p></div>
+            </div>
+            <div class="gallery-item">
+                <img src="gifts.jpg" alt="you">
+                <div class="overlay"><p>The Bride</p></div>
+            </div>
+            <div class="gallery-item">
+                <img src="you.jpg" alt="Gifts">
+                <div class="overlay"><p>Gifts</p></div>
+            </div>
+            <div class="gallery-item">
+                <img src="sibling.jpg" alt="Siblings">
+                <div class="overlay"><p>Fam</p></div>
+            </div>
+             <div class="gallery-item">
+                <img src="time1.jpg" alt="Memory 8">
+                <div class="overlay"><p>Yeah! You are 1 year older.</p></div>
+            </div>
+             <div class="gallery-item">
+                <img src="beautifulus.jpg" alt="Memory 9">
+                <div class="overlay"><p>Face Time </p></div>
+            </div>
+             <div class="gallery-item">
+                <img src="talkative me.jpg" alt="Memory 10">
+                <div class="overlay"><p>Speaking of my hair</p></div>
+            </div>
+             <div class="gallery-item">
+                <img src="Mwenyesherehe.jpg" alt="Memory 11">
+                <div class="overlay"><p>Mkula Keki</p></div>
+            </div>
+            <!-- Inside index.html, paste this block inside your gallery-grid div -->
+           <div class="gallery-item video-item" style="position: relative; overflow: hidden; border-radius: 15px; height: 350px; box-shadow: 0 8px 20px rgba(0,0,0,0.08);">
+              <label for="gallery-item video-item">No Caption</label>
+           <video controls poster="placeholder-image.jpg" style="width: 100%; height: 100%; object-fit: cover;">
+         <!-- Replace 'our-video.mp4' with your exact video filename -->
+          <source src="us.mp4" type="video/mp4">
+         </video>
+           </div>
+           <div class="gallery-item video-item2" style="position: relative; overflow: hidden; border-radius: 15px; height: 350px; box-shadow: 0 8px 20px rgba(0,0,0,0.08);">
+            <label for="gallery-item video-item2">More Facetime</label>
+    <video controls poster="placeholder-image.jpg" style="width: 100%; height: 100%; object-fit: cover;">
+        <!-- Replace 'our-video.mp4' with your exact video filename -->
+        <source src="facetime.mp4" type="video/mp4">
+    </video>
+</div>
+
+
+        </div>
+    </section>
+
+    <!-- 4. Inside Joke & Interactive Surprises -->
+    <section id="surprises" class="surprise-section">
+        <h2 class="section-title">Interactive Surprises</h2>
+        <div class="surprise-box-container">
+            
+            <!-- Surprise Box 1: Inside Joke Riddle -->
+            <div class="surprise-card" onclick="revealSecret('joke-modal')">
+                <div class="box-icon">🤫</div>
+                <h3>Jokes na ukweli</h3>
+                <p></p>
+            </div>
+
+            <!-- Surprise Box 2: Audio Message -->
+            <div class="surprise-card" onclick="revealSecret('audio-modal')">
+                <div class="box-icon">🎙️</div>
+                <h3>Mic check</h3>
+                <p>Tap! tap!.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modals for Surprises -->
+    <div id="joke-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('joke-modal')">&times;</span>
+            <h2>Hell yeah...</h2>
+            <p class="joke-text">
+                <dl>
+                <dt>1.Do you know why God Made Man first?</dt>
+                <dd>Because he didn't want advice on how to do it.</dd>
+                <dt>2. How do you make a 5pond of fat look good?</dt>
+                <dd>You Add a Nipple On it.</dd><br>
+        </dl>
+        </p>
+        <dl>
+            <dt>Want to know what I call A Girlfriend that ruins my perfect day out of the blues💖</dt>
+            <dd>Valerian Nduku!</dd>
+        </dl>
+        </div>
+    </div>
+
+    <div id="audio-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('audio-modal')">&times;</span>
+            <h2>A Message Just For You</h2>
+            <p>💖</p>
+            <!-- Add a link to your recorded voice file in the src attribute -->
+            <audio controls class="voice-note-player">
+                <source src="Vals Bday recording..m4a" type="audio/mpeg">
+                Mmmh...
+            </audio>
+        </div>
+    </div>
+<!-- Place this right before your <footer> tag -->
+<section id="message-me" class="message-section" style="padding: 100px 20px; max-width: 600px; margin: 0 auto; text-align: center;">
+    <h2 class="section-title" style="font-family: 'Playfair Display', serif; font-size: 2.8rem; color: #e05375; margin-bottom: 20px;text-decoration: none;">Leave Me a Message</h2>
+    <p style="margin-bottom: 30px; font-style: italic;">Type a sweet note, a wish, or a memory, and it will drop straight into my inbox!</p>
+    
+    <!-- Replace 'YOUR_FORM_ID' with the Formspree ID you get in the steps below -->
+    <form action="https://api.web3forms.com/submit" method="POST" style="display: flex; flex-direction: column; gap: 15px;">
+         <input type="hidden" name="access_key" value="c69a07e8-3379-425e-8410-6f2f1dde6ecc">
+        <label style="text-align: left; font-weight: 600; font-size: 0.9rem; color: #4a3e41;">Your Note:</label>
+        <textarea name="message" rows="5" required placeholder="mmmh say the words..." 
+            style="width: 100%; padding: 15px; border-radius: 12px; border: 2px solid #ff7597; font-family: inherit; font-size: 1rem; resize: vertical; outline: none; transition: border-color 0.3s;"></textarea>
+        
+        <button type="submit" style="background: #e05375; color: white; border: none; padding: 12px 30px; border-radius: 25px; font-weight: 600; font-size: 1rem; cursor: pointer; transition: background 0.3s; align-self: center;">
+            Send to Me ❤️
+        </button>
+    </form>
+</section>
+
+    <!-- Footer Footer -->
+    <footer>
+        <p>Made with infinitely deep love by ~Enoch~ for the best girlfriend in the universe. Happy Birthday! ✨</p>
+    </footer>
+
+    <script src="Bday.js"></script>
+</body>
+</html>
