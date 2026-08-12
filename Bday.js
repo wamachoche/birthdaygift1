@@ -26,7 +26,7 @@ const countdownFunction = setInterval(() => {
                 <h3 style="color:#1b1917; font-size:2.5rem; font-family:'Dancing Script', cursive; margin-bottom: 10px;">
                     🎉 Happy 18th Birthday, My Queen! 🎉
                 </h3>
-                <p style="font-size: 1.2rem; font-weight: 600; color: #dfb15b;">
+                <p style="font-size: 1.2rem; font-weight: 600; color: #1b1917;">
                     Official Chapter 18 • Cheers to 18 Years of Absolute Perfection! ✨
                 </p>
             </div>
